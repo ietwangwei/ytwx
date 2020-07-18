@@ -1,0 +1,30 @@
+.notice {
+
+  .page-container {
+    padding: 24px 16px;
+  }
+
+  .notice-bar {
+    font-size: 24px;
+  }
+
+  p {
+    line-height: 2;
+  }
+
+  .test {
+    font-size: 24px;
+  }
+
+  .btn {
+    margin-top: 48px;
+    .van-button {
+      width: 100%;
+      margin-top: 24px;
+    }
+  }
+}
+
+.van-icon {
+  font-size: 18px;
+}

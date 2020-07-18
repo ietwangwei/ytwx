@@ -1,0 +1,46 @@
+// margin部分
+
+// @each $item in top, left, bottom, right {
+//   @for $i from 2 through 16 {
+//     .margin-#{$item}#{2 * $i} {
+//       margin-#{$item}: 2px * $i;
+//     }
+//   }
+// }
+
+// // padding部分
+
+// @each $item in top, left, bottom, right {
+//   @for $i from 2 through 16 {
+//     .padding-#{$item}#{2 * $i} {
+//       padding-#{$item}: 2px * $i;
+//     }
+//   }
+// }
+
+// 基础部分
+
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
+}
+
+.clear {
+  clear: both;
+}
+
+.clearfix:after {
+  content:"";
+  display: block;
+  clear: both;
+  height: 0;
+  line-height: 0;
+  visibility: hidden;
+}
+
+.clearfix {
+  zoom:1;
+}
