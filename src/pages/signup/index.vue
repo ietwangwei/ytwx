@@ -38,6 +38,7 @@
           :max-count="item.max"
           :after-read="afterRead"
           class="van-cell"
+          accept="image" 
         />
         <div
           v-if="item.type === 'area'"

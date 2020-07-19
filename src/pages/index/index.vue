@@ -2,9 +2,6 @@
   <view class="index">
     <div class="bg">
       <div class="logo" />
-      <div class="desc">
-        2020年艺体特长生招生测试
-      </div>
       <div class="user">
         <van-image
           round
@@ -27,6 +24,9 @@
       >
         {{ item.label }}
       </van-button>
+      <div class="desc">
+        2020年艺体特长生招生测试
+      </div>
     </div>
   </view>
 </template>
