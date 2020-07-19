@@ -22,6 +22,15 @@
       left: 50%;
       transform: translateX(-50%);
     }
+
+    .desc {
+      position: absolute;
+      top: 65%;
+      width: 100%;
+      text-align: center;
+      font-size: 42px;
+      color: red;
+    }
   }
 
   .user {

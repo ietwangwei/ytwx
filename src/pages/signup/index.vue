@@ -2,13 +2,16 @@
   <view class="signup">
     <van-cell-group>
       <van-cell
-        :border="true"
-        @click="click(item)"
         v-for="(item, index) in formConfig"
         :key="index"
+        :border="true"
+        @click="click(item)"
       >
         <div class="ceel-label">
-          <span v-if="item.required" style="color: red;">*</span>
+          <span
+            v-if="item.required"
+            style="color: red;"
+          >*</span>
           <span class="margin-left10 title">{{ item.label }}</span>
         </div>
         <van-field
@@ -46,20 +49,31 @@
       </van-cell>
       <div class="button">
         <van-checkbox
-          style="margin-top: 12px;"
           v-model="checked"
+          style="margin-top: 12px;"
           icon-size="14px"
           checked-color="#07c160"
         >
           <span style="color: rgba(69, 90, 100, 0.6);font-size: 14px;">我承诺所填信息均真实有效</span>
         </van-checkbox>
-        <van-button :disabled="submitDisabled || !checked" type="primary" @click="submit" style="margin-top: 12px;">
+        <van-button
+          :disabled="submitDisabled || !checked"
+          :loading="loading"
+          loading-text="正在提交..."
+          loading-type="spinner"
+          type="primary"
+          style="margin-top: 12px;"
+          @click="submit"
+        >
           提 交
         </van-button>
       </div>
     </van-cell-group>
     <!-- 选择特长 -->
-    <van-popup v-model="show" position="bottom">
+    <van-popup
+      v-model="show"
+      position="bottom"
+    >
       <van-picker
         v-model="formData.techang"
         :columns="columns"
@@ -69,12 +83,15 @@
       />
     </van-popup>
     <!-- 选择省市区 -->
-    <van-popup v-model="areaShow" position="bottom">
+    <van-popup
+      v-model="areaShow"
+      position="bottom"
+    >
       <van-area
         :area-list="areaList"
+        :value="formData.householdCode"
         @confirm="onAreaConfirm"
         @cancel="onAreaCancle"
-        :value="formData.householdCode"
       />
     </van-popup>
   </view>
@@ -97,6 +114,14 @@ export default {
           prop: "studentName",
           required: true,
           placeholder: "请输入姓名"
+        },
+        {
+          label: "考生电话",
+          type: "field",
+          mode: "number",
+          prop: "telephone",
+          required: true,
+          placeholder: "请输入联系电话"
         },
         {
           label: "身份证号码",
@@ -127,14 +152,6 @@ export default {
           placeholder: "请输入报考特长"
         },
         {
-          label: "考生电话",
-          type: "field",
-          mode: "number",
-          prop: "telephone",
-          required: true,
-          placeholder: "请输入联系电话"
-        },
-        {
           label: "监护人姓名",
           type: "field",
           prop: "guarderName",
@@ -150,7 +167,7 @@ export default {
           placeholder: "请输入监护人电话"
         },
         {
-          label: "考生照片",
+          label: "考生照片（2寸证件照）",
           type: "upload",
           required: true,
           max: 1,
@@ -201,7 +218,8 @@ export default {
         skill: ["美术", "体育", "声乐", "器乐", "舞蹈", "播音主持", "书法"]
       },
       submitDisabled: true,
-      uploadProp: null
+      uploadProp: null,
+      loading: false
     };
   },
   watch: {
@@ -291,6 +309,7 @@ export default {
       return new Date().getTime()
     },
     submit() {
+      this.loading = true
       const queryData = Object.assign({}, this.formData, {
         zjzUrls: this.formData.zjzUrls.map(i => i.url),
         sfzhkbUrls: this.formData.sfzhkbUrls.map(i => i.url),
@@ -298,6 +317,7 @@ export default {
       });
       let openid = localStorage.getItem('openid');
       this.$http.ytzx.saveBaoming(queryData).then(res => {
+        this.loading = false
         if (res.code === 200) {
           this.$toast("报名成功！");
           localStorage.clear()
