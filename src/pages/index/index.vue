@@ -108,7 +108,7 @@ export default {
     },
     getBaomingByOpenid () {
       this.$http.ytzx.getBaomingByOpenid().then(res => {
-        if (res.code === 200 && res.data) {
+        if (res.code === 200) {
           if (res.data) {
             this.fileId = res.data.id
             this.$set(this.navs[1], 'disabled', false)
