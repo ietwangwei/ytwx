@@ -31,6 +31,12 @@ export default {
       method: 'get'
     })
   },
+  canSubmit () {
+    return httpService({
+      url: ytzx.canSubmit,
+      method: 'get'
+    })
+  },
   exportPdfFile (id) {
     return ytzx.exportPdfFile + id
   }

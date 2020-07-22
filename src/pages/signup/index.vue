@@ -64,7 +64,7 @@
           loading-type="spinner"
           type="primary"
           style="margin-top: 12px;"
-          @click="submit"
+          @click="submitData"
         >
           提 交
         </van-button>
@@ -104,6 +104,8 @@ import regionData from "../../static/region";
 export default {
   data() {
     return {
+      submit: true,
+      submitStr:'',
       show: false,
       areaShow: false,
       checked: false,
@@ -243,11 +245,15 @@ export default {
           }
         }
         this.submitDisabled = result;
+        if(this.submit==false)  {
+          this.submitDisabled = true;
+        }
       },
       deep: true
     }
   },
   mounted() {
+    this.canSubmit();
     let routeParams = this.$Taro.Current.router.params;
     if (routeParams.hasData) {
       let data = localStorage.getItem("baoming");
@@ -273,6 +279,21 @@ export default {
     }
   },
   methods: {
+    canSubmit () {
+      this.$http.ytzx.canSubmit().then(res => {
+        if (res.code === 200) {
+          console.info(res.data.submit);
+          this.submit = res.data.submit;
+          this.submitStr = res.data.message;
+          if (res.data.submit==false) {
+            this.$toast(res.data.message);
+            this.submitDisabled = true;
+          }
+        } else {
+          this.$toast(res.message);
+        }
+      });
+    },
     inputChange(e) {
       const value = e.target.value;
       const prop = e.target.getAttribute("prop");
@@ -308,7 +329,11 @@ export default {
     getUuid () {
       return new Date().getTime()
     },
-    submit() {
+    submitData() {
+      if(!this.submit){
+        this.$toast(this.submitStr);
+        return;
+      }
       this.loading = true
       const queryData = Object.assign({}, this.formData, {
         zjzUrls: this.formData.zjzUrls.map(i => i.url),

@@ -85,7 +85,7 @@ export default {
     }
     this.getWechatUserInfo()
     this.getBaomingByOpenid()
-    this.$toast(`${document.body.clientHeight}`)
+    // this.$toast(`${document.body.clientHeight}`)
   },
   methods: {
     navTo (item) {
@@ -109,10 +109,12 @@ export default {
     getBaomingByOpenid () {
       this.$http.ytzx.getBaomingByOpenid().then(res => {
         if (res.code === 200 && res.data) {
-          this.fileId = res.data.id
-          this.$set(this.navs[1], 'disabled', false)
-          this.$set(this.navs[2], 'disabled', false)
-          localStorage.setItem('baoming', JSON.stringify(res.data))
+          if (res.data) {
+            this.fileId = res.data.id
+            this.$set(this.navs[1], 'disabled', false)
+            this.$set(this.navs[2], 'disabled', false)
+            localStorage.setItem('baoming', JSON.stringify(res.data))
+          }
         } else {
           this.$toast(res.message);
           this.$set(this.navs[0], 'disabled', false)
@@ -120,7 +122,7 @@ export default {
       })
     },
     download (id) {
-      this.$toast('正在下载您的准考证，请稍等...')
+      this.$toast('正在下载准考证，请稍后...')
       let target = document.createElement('a')
       target.style.display = 'none'
       target.href = this.$http.ytzx.exportPdfFile(id)
