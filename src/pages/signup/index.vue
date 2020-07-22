@@ -16,7 +16,7 @@
         </div>
         <van-field
           v-if="item.type === 'field'"
-          :value="formData[item.prop]"
+          v-model="formData[item.prop]"
           :placeholder="item.placeholder"
           :border="false"
           :type="item.mode"
@@ -277,7 +277,6 @@ export default {
       const value = e.target.value;
       const prop = e.target.getAttribute("prop");
       this.formData[prop] = value;
-      console.log(this.formData);
     },
     openPicker(item) {
       this.columns = this.columnsMap[item.prop];

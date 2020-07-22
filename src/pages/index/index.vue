@@ -1,15 +1,29 @@
 <template>
   <view class="index">
     <div class="bg">
-      <div class="logo" />
       <div class="user">
         <van-image
+          v-if="userInfo.headimgurl"
           round
           width="80px"
           height="80px"
+          use-error-slot
           :src="userInfo.headimgurl"
+        >
+          <!-- <text slot="error">
+            加载失败
+          </text> -->
+        </van-image>
+        <div
+          v-else
+          class="user-cover"
+          style="width:80px; height: 80px;"
         />
       </div>
+      <div class="desc">
+        2020年艺体特长生招生测试
+      </div>
+      <div class="logo" />
     </div>
     <div class="page-container">
       <van-button
@@ -24,9 +38,6 @@
       >
         {{ item.label }}
       </van-button>
-      <div class="desc">
-        2020年艺体特长生招生测试
-      </div>
     </div>
   </view>
 </template>
@@ -61,8 +72,9 @@ export default {
       openid: null,
       fileId: '',
       userInfo: {
-        headimgurl: '../../static/images/header.png'
-      }
+        headimgurl: ''
+      },
+      hasUser: false
     }
   },
   mounted () {
@@ -73,6 +85,7 @@ export default {
     }
     this.getWechatUserInfo()
     this.getBaomingByOpenid()
+    this.$toast(`${document.body.clientHeight}`)
   },
   methods: {
     navTo (item) {
