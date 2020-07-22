@@ -85,7 +85,6 @@ export default {
     }
     this.getWechatUserInfo()
     this.getBaomingByOpenid()
-    this.$toast(`${document.body.clientHeight}`)
   },
   methods: {
     navTo (item) {
