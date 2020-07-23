@@ -114,6 +114,8 @@ export default {
             this.$set(this.navs[1], 'disabled', false)
             this.$set(this.navs[2], 'disabled', false)
             localStorage.setItem('baoming', JSON.stringify(res.data))
+          } else {
+            this.$set(this.navs[0], 'disabled', false)
           }
         } else {
           this.$toast(res.message);
