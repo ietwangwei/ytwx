@@ -205,6 +205,7 @@ export default {
       this.$http.ytzx.getScore().then(res => {
         if (res.code === 200 && res.data) {
           this.formData = res.data
+          this.getTotal()
         } else {
           this.$toast(res.message)
         }
@@ -220,7 +221,7 @@ export default {
       let total = 0
       for (let i in this.formData) {
         if (i !== 'total' && this.formData[i]) {
-          total += parseInt(this.formData[i])
+          total += parseFloat(this.formData[i])
         }
       }
       this.formData.total = total
