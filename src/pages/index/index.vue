@@ -73,7 +73,7 @@ export default {
           type: '4',
           url: '/pages/score/index',
           icon: 'edit',
-          disabled: false
+          disabled: true
         }
       ],
       openid: null,
@@ -120,6 +120,7 @@ export default {
             this.fileId = res.data.id
             this.$set(this.navs[1], 'disabled', false)
             this.$set(this.navs[2], 'disabled', false)
+            this.$set(this.navs[3], 'disabled', false)
             localStorage.setItem('baoming', JSON.stringify(res.data))
           } else {
             this.$set(this.navs[0], 'disabled', false)

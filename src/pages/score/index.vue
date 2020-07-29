@@ -58,7 +58,7 @@
           <span style="color: rgba(69, 90, 100, 0.6);font-size: 14px;">我承诺所填信息均真实有效</span>
         </van-checkbox>
         <van-button
-          :disabled="submitDisabled || !checked || !ableTo"
+          :disabled="submitDisabled || !checked"
           :loading="loading"
           loading-text="正在提交..."
           loading-type="spinner"
@@ -163,7 +163,6 @@ export default {
           label: "总分",
           type: "field",
           prop: "total",
-          required: true,
           mode: 'number',
           disabled: true,
           placeholder: "请输入总分"
@@ -183,8 +182,7 @@ export default {
         total: 0
       },
       loading: false,
-      checked: false,
-      ableTo: false
+      checked: false
     }
   },
   computed: {
@@ -205,8 +203,7 @@ export default {
   methods: {
     getScore () {
       this.$http.ytzx.getScore().then(res => {
-        if (res.code === 200) {
-          this.ableTo = true
+        if (res.code === 200 && res.data) {
           this.formData = res.data
         } else {
           this.$toast(res.message)
@@ -241,7 +238,7 @@ export default {
           this.$toast("提交成功！");
           localStorage.clear()
           this.$Taro.navigateTo({
-            url: `/pages/index/index`
+            url: `/pages/index/index?openid=${openid}`
           });
         } else {
           this.$toast(res.message);
