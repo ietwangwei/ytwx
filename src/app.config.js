@@ -3,7 +3,8 @@ export default {
     'pages/index/index',
     'pages/signup/index',
     'pages/notice/index',
-    'pages/center/index'
+    'pages/center/index',
+    'pages/score/index'
   ],
   window: {
     backgroundTextStyle: 'light',

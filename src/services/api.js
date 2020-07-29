@@ -11,4 +11,6 @@ export const ytzx = {
   saveBaoming: prefix + '/ytzx/saveBaoming', // 保存报名信息（新增无id，修改有id）
   getWechatUserInfo: prefix + '/ytzx/getWechatUserInfo', // 获取用户信息
   exportPdfFile: prefix + '/ytzx/exportPdfFile/', // 下载准考证
+  submitScore: prefix + '/ytzx/submitScore', // 提交成绩
+  getScore: prefix + '/ytzx/getScore' // 获取成绩
 }

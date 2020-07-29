@@ -39,5 +39,18 @@ export default {
   },
   exportPdfFile (id) {
     return ytzx.exportPdfFile + id
-  }
+  },
+  submitScore (data) {
+    return httpService({
+      url: ytzx.submitScore,
+      method: 'post',
+      data
+    })
+  },
+  getScore () {
+    return httpService({
+      url: ytzx.getScore,
+      method: 'get'
+    })
+  },
 }

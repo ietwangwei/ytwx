@@ -67,6 +67,13 @@ export default {
           url: '/pages/center/index',
           icon: 'down',
           disabled: true
+        },
+        {
+          label: '中考成绩录入',
+          type: '4',
+          url: '/pages/score/index',
+          icon: 'edit',
+          disabled: false
         }
       ],
       openid: null,
