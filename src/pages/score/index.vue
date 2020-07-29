@@ -58,7 +58,7 @@
           <span style="color: rgba(69, 90, 100, 0.6);font-size: 14px;">我承诺所填信息均真实有效</span>
         </van-checkbox>
         <van-button
-          :disabled="submitDisabled || !checked"
+          :disabled="submitDisabled || !checked || !ableTo"
           :loading="loading"
           loading-text="正在提交..."
           loading-type="spinner"
@@ -184,7 +184,7 @@ export default {
       },
       loading: false,
       checked: false,
-      total: ''
+      ableTo: false
     }
   },
   computed: {
@@ -206,6 +206,7 @@ export default {
     getScore () {
       this.$http.ytzx.getScore().then(res => {
         if (res.code === 200) {
+          this.ableTo = true
           this.formData = res.data
         } else {
           this.$toast(res.message)
