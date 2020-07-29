@@ -179,7 +179,7 @@ export default {
         biology: '',
         geography: '',
         physical: '',
-        total: 0
+        total: ''
       },
       loading: false,
       checked: false
@@ -224,7 +224,7 @@ export default {
           total += parseFloat(this.formData[i])
         }
       }
-      this.formData.total = total
+      this.$set(this.formData, 'total', total)
     },
     clearHandler (item) {
       this.formData[item.prop] = ''
