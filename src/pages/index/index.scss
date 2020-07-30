@@ -32,16 +32,6 @@
       color: red;
       margin-top: -12px;
     }
-
-    // @media screen and (min-height: 800px) {
-    //   .desc {
-    //     width: 100%;
-    //     text-align: center;
-    //     font-size: 42px;
-    //     color: red;
-    //     margin-top: 48px;
-    //   }
-    // }
   }
 
   .user {
@@ -73,6 +63,19 @@
     width: 100%;
     box-sizing: border-box;
     
+  }
+
+  @media screen and (max-height: 800px) {
+    .nav-item {
+      width: 80%;
+      height: 60px;
+      margin-bottom: 24px;
+      font-size: 20px;
+
+      .van-icon {
+        font-size: 20px;
+      }
+    }
   }
 
   .nav-item {
