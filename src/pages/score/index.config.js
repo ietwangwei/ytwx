@@ -1,3 +1,3 @@
 export default {
-  navigationBarTitleText: '录入中考成绩'
+  navigationBarTitleText: '中考成绩录入'
 }
