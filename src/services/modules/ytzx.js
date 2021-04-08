@@ -12,6 +12,12 @@ export default {
       data
     })
   },
+  getBmConfig(){
+    return httpService({
+      url: ytzx.getBmConfig,
+      method: 'get'
+    })
+  },
   getBaomingByOpenid () {
     return httpService({
       url: ytzx.getBaomingByOpenid,

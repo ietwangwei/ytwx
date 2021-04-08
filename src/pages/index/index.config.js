@@ -1,3 +1,3 @@
 export default {
-  navigationBarTitleText: '2020年艺体特长生招生测试'
+  navigationBarTitleText: '双流区2021年指标到校生艺体特长素质测试'
 }

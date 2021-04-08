@@ -7,7 +7,7 @@ module.exports = {
   mini: {},
   h5: {
     devServer:{
-      host: "192.168.100.186",
+      host: "127.0.0.1",
       port: 8002
     }
   }
