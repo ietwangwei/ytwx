@@ -118,7 +118,7 @@ export default {
           console.info(res.data);
           this.title = res.data.title;
           if (res.data.canBm) {
-            this.$set(this.navs[0], "disabled", false);
+            // this.$set(this.navs[0], "disabled", false);
           }
           if (res.data.canZkz) {
             this.$set(this.navs[2], "disabled", false);
@@ -148,7 +148,7 @@ export default {
             // this.$set(this.navs[3], "disabled", false);
             localStorage.setItem("baoming", JSON.stringify(res.data));
           } else {
-            //this.$set(this.navs[0], "disabled", false);
+            this.$set(this.navs[0], "disabled", false);
           }
         } else {
           this.$toast(res.message);
