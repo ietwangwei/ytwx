@@ -2,58 +2,58 @@ import httpService from '../httpService'
 import { ytzx } from '../api'
 
 export default {
-  upload (data) {
+  upload(data) {
     return httpService({
       options: {
-        
+
       },
       url: ytzx.upload,
       method: 'post',
       data
     })
   },
-  getBmConfig(){
+  getBmConfig() {
     return httpService({
       url: ytzx.getBmConfig,
       method: 'get'
     })
   },
-  getBaomingByOpenid () {
+  getBaomingByOpenid() {
     return httpService({
       url: ytzx.getBaomingByOpenid,
       method: 'get'
     })
   },
-  saveBaoming (data) {
+  saveBaoming(data) {
     return httpService({
       url: ytzx.saveBaoming,
       method: 'post',
       data
     })
   },
-  getWechatUserInfo () {
+  getWechatUserInfo() {
     return httpService({
       url: ytzx.getWechatUserInfo,
       method: 'get'
     })
   },
-  canSubmit () {
+  canSubmit() {
     return httpService({
       url: ytzx.canSubmit,
       method: 'get'
     })
   },
-  exportPdfFile (id) {
-    return ytzx.exportPdfFile + id
+  exportPdfFile(id) {
+    return ytzx.exportPdfFile + id + '?locked=true'
   },
-  submitScore (data) {
+  submitScore(data) {
     return httpService({
       url: ytzx.submitScore,
       method: 'post',
       data
     })
   },
-  getScore () {
+  getScore() {
     return httpService({
       url: ytzx.getScore,
       method: 'get'

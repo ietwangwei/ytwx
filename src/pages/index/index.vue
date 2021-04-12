@@ -16,22 +16,22 @@
         </van-image>
         <div v-else class="user-cover" style="width: 80px; height: 80px" />
       </div>
+      <div class="grid">
+        <van-button
+          v-for="item in navs"
+          :key="item.type"
+          :icon="item.icon"
+          :disabled="item.disabled"
+          class="grid-btn"
+          type="info"
+          :style="{ width: item.width }"
+          @click="navTo(item)"
+        >
+          {{ item.label }}
+        </van-button>
+      </div>
       <div class="desc" v-html="title"></div>
       <div class="logo" />
-    </div>
-    <div class="page-container">
-      <van-button
-        v-for="item in navs"
-        :key="item.type"
-        :icon="item.icon"
-        :disabled="item.disabled"
-        class="nav-item"
-        type="info"
-        round
-        @click="navTo(item)"
-      >
-        {{ item.label }}
-      </van-button>
     </div>
   </view>
 </template>
@@ -45,15 +45,17 @@ export default {
           label: "开始报名",
           type: "1",
           url: "/pages/notice/index",
-          icon: "edit",
+          icon: "plus",
           disabled: true,
+          width: "100%",
         },
         {
           label: "我的报名",
           type: "2",
           url: "/pages/signup/index?hasData=true",
-          icon: "user-circle-o",
+          icon: "success",
           disabled: true,
+          width: "100%",
         },
         {
           label: "下载准考证",
@@ -61,13 +63,23 @@ export default {
           url: "/pages/center/index",
           icon: "down",
           disabled: true,
+          width: "100%",
         },
         {
           label: "中考成绩录入",
           type: "4",
           url: "/pages/score/index",
-          icon: "edit",
+          icon: "sign",
           disabled: true,
+          width: "100%",
+        },
+        {
+          label: "测试成绩查询",
+          type: "5",
+          url: "/pages/score/index",
+          icon: "search",
+          disabled: true,
+          width: "204%",
         },
       ],
       openid: null,
@@ -111,6 +123,9 @@ export default {
           if (res.data.canZkz) {
             this.$set(this.navs[2], "disabled", false);
           }
+          if (res.data.canScore) {
+            this.$set(this.navs[4], "disabled", false);
+          }
         }
       });
     },
@@ -129,28 +144,41 @@ export default {
           if (res.data) {
             this.fileId = res.data.id;
             this.$set(this.navs[1], "disabled", false);
-            this.$set(this.navs[2], "disabled", false);
-            this.$set(this.navs[3], "disabled", false);
+            // this.$set(this.navs[2], "disabled", false);
+            // this.$set(this.navs[3], "disabled", false);
             localStorage.setItem("baoming", JSON.stringify(res.data));
           } else {
-            this.$set(this.navs[0], "disabled", false);
+            //this.$set(this.navs[0], "disabled", false);
           }
         } else {
           this.$toast(res.message);
-          this.$set(this.navs[0], "disabled", false);
+          // this.$set(this.navs[0], "disabled", false);
         }
       });
     },
     download(id) {
-      this.$toast("正在下载准考证，请稍后...");
-      let target = document.createElement("a");
-      target.style.display = "none";
-      target.href = this.$http.ytzx.exportPdfFile(id);
-      target.addEventListener("click", () => {
-        console.log("阻止跳转");
-        return false;
-      });
-      target.click();
+      this.$dialog
+        .alert({
+          title: "下载准考证提示", //加上标题
+          message: "准考证下载后将无法修改报名！是否下载", //改变弹出框的内容
+          confirmButtonText: "确定下载",
+          showCancelButton: true, //展示取水按钮
+        })
+        .then(() => {
+          this.$toast("正在下载准考证，请稍后...");
+          let target = document.createElement("a");
+          target.style.display = "none";
+          target.href = this.$http.ytzx.exportPdfFile(id);
+          target.addEventListener("click", () => {
+            console.log("阻止跳转");
+            return false;
+          });
+          target.click();
+        })
+        .catch(() => {
+          //点击取消按钮后的调用
+          console.log("点击了取消按钮噢");
+        });
     },
   },
 };
