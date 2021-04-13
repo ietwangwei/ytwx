@@ -160,7 +160,8 @@ export default {
       this.$dialog
         .alert({
           title: "下载准考证提示", //加上标题
-          message: "准考证下载后将无法修改报名！是否下载", //改变弹出框的内容
+          message:
+            "准考证下载后将无法修改报名信息，请再次检查确认所填信息，特别是考生照片是否清晰、头向上！是否下载 ？", //改变弹出框的内容
           confirmButtonText: "确定下载",
           showCancelButton: true, //展示取水按钮
         })
