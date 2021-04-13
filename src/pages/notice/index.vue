@@ -3,21 +3,19 @@
     <div class="page-container">
       <div class="notice-bar">
         <p>温馨提示：</p>
-        <p>1. 请考生按照要求准确填报信息，且每生限报一个专业。</p>
-        <p>2. 考生照片、身份证或户口簿、主要荣誉上传时请保证图片标准清晰，下载准考证(用于考生打印)之前可在“我的报名”里面重新上传。4月15日开放下载准考证，下载准考证后将无法修改报名信息。</p>
-        <p>3. 请考生到四川省双流艺体中学微信公众号查看各专业具体考试要求，并按照要求进行备考。</p>
-        <p>4. 根据防疫要求，请所有考生佩戴口罩、持健康码、身份证（户口簿）、准考证并按照我校要求有序进校参加考试。</p>
-        <p>5. 请所有考生合理规划出行时间，提前1小时到考试地点候考。</p>
+        <div v-html="notice" />
       </div>
       <div class="btn">
         <van-checkbox
           v-model="checked"
-          :disabled=" time > 1"
+          :disabled="time > 1"
           class="test"
           icon-size="16px"
           checked-color="#07c160"
         >
-          <span style="color: rgba(69, 90, 100, 0.6);">阅读并同意《报名须知》</span>
+          <span style="color: rgba(69, 90, 100, 0.6)"
+            >阅读并同意《报名须知》</span
+          >
         </van-checkbox>
         <van-button
           :disabled="!checked"
@@ -25,7 +23,7 @@
           type="primary"
           @click="handleClick"
         >
-          已阅读并开始报名<span v-if="time > 1">(剩余{{ time }}秒)</span>
+          已阅读并开始报名<span v-if="time > 0">(剩余{{ time }}秒)</span>
         </van-button>
       </div>
     </div>
@@ -33,34 +31,43 @@
 </template>
 
 <script>
-let timer
+let timer;
 export default {
-  data () {
+  data() {
     return {
+      notice: "",
       checked: false,
-      time: 6,
-      timer: null
-    }
+      time: 10,
+      timer: null,
+    };
   },
-  mounted () {
+  mounted() {
+    this.getBmConfig();
     this.timer = setInterval(() => {
-      this.time--
-      if (this.time < 1) {
-        clearInterval(this.timer)
+      if (this.time <= 0) {
+        clearInterval(this.timer);
       }
-    }, 1000)
+      this.time--;
+    }, 1000);
   },
   methods: {
-    handleClick () {
+    handleClick() {
       this.$Taro.navigateTo({
-        url: '/pages/signup/index'
-      })
-    }
-  }
-}
+        url: "/pages/signup/index",
+      });
+    },
+    getBmConfig() {
+      this.$http.ytzx.getBmConfig().then((res) => {
+        if (res.code === 200) {
+          this.notice = res.data.notice;
+        }
+      });
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-@import './index.scss';
+@import "./index.scss";
 </style>
 

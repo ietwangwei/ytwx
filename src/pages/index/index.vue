@@ -122,6 +122,8 @@ export default {
           }
           if (res.data.canZkz) {
             this.$set(this.navs[2], "disabled", false);
+          }else{
+             this.$set(this.navs[2], "label", res.data.zkz.beginTip);
           }
           if (res.data.canScore) {
             this.$set(this.navs[4], "disabled", false);
