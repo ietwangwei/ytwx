@@ -201,7 +201,11 @@ export default {
           this.$toast("正在下载准考证，请稍后...");
           let target = document.createElement("a");
           target.style.display = "none";
-          target.href = this.$http.ytzx.exportPdfFile(id);
+          let url = this.$http.ytzx.exportPdfFile(id);
+          if (this.bmData.zkzUrl) {
+            url = this.bmData.zkzUrl;
+          }
+          target.href = url;
           target.addEventListener("click", () => {
             console.log("阻止跳转");
             return false;
