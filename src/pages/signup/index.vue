@@ -304,7 +304,7 @@ export default {
       if (!e) return;
       let size = e.file.size / 1024 / 1024;
       console.info(size);
-      if (size > 2) {
+      if (size >= 2) {
         let array = this.formData[this.uploadProp];
         let newArray = [];
         if (array.length > 0) {
