@@ -89,6 +89,11 @@ export default {
       },
       hasUser: false,
       title: "",
+      canBm: false,
+      canZkz: false,
+      canZkcj: false,
+      canScore: false,
+      bmData: {},
     };
   },
   mounted() {
@@ -97,15 +102,28 @@ export default {
     if (this.openid) {
       localStorage.setItem("openid", this.openid);
     }
-    this.getBmConfig();
     this.getWechatUserInfo();
-    this.getBaomingByOpenid();
+    this.getBmConfig();
     // this.$toast(`${document.body.clientHeight}`)
   },
   methods: {
     navTo(item) {
       if (item.type === "3") {
         this.download(this.fileId);
+      } else if (item.type === "5") {
+        this.$dialog
+          .alert({
+            title: "测试成绩", //加上标题
+            message:
+              this.bmData.studentName +
+              "你好，你在本次艺体特长测试【" +
+              this.bmData.skill +
+              "】专业的成绩是" +
+              this.bmData.skillScore +
+              "分！",
+          })
+          .then(() => {})
+          .catch(() => {});
       } else {
         this.$Taro.navigateTo({
           url: item.url,
@@ -118,16 +136,19 @@ export default {
           console.info(res.data);
           this.title = res.data.title;
           if (res.data.canBm) {
-            // this.$set(this.navs[0], "disabled", false);
+            this.canBm = true;
+            this.$set(this.navs[0], "disabled", false);
           }
           if (res.data.canZkz) {
-            this.$set(this.navs[2], "disabled", false);
-          }else{
-             this.$set(this.navs[2], "label", res.data.zkz.beginTip);
+            // this.$set(this.navs[2], "disabled", false);
+            this.canZkz = res.data.canZkz;
+          } else {
+            this.$set(this.navs[2], "label", res.data.zkz.beginTip);
           }
-          if (res.data.canScore) {
-            this.$set(this.navs[4], "disabled", false);
-          }
+          // this.$set(this.navs[4], "disabled", false);
+          this.canZkcj = res.data.canZkcj;
+          this.canScore = res.data.canScore;
+          this.getBaomingByOpenid();
         }
       });
     },
@@ -144,13 +165,22 @@ export default {
       this.$http.ytzx.getBaomingByOpenid().then((res) => {
         if (res.code === 200) {
           if (res.data) {
+            this.bmData = res.data;
             this.fileId = res.data.id;
+            this.$set(this.navs[0], "disabled", true);
             this.$set(this.navs[1], "disabled", false);
+            if (this.canZkz) {
+              this.$set(this.navs[2], "disabled", false);
+            }
+            if (this.canZkcj) {
+              this.$set(this.navs[3], "disabled", false);
+            }
+            if (this.canScore) {
+              this.$set(this.navs[4], "disabled", false);
+            }
             // this.$set(this.navs[2], "disabled", false);
             // this.$set(this.navs[3], "disabled", false);
             localStorage.setItem("baoming", JSON.stringify(res.data));
-          } else {
-            this.$set(this.navs[0], "disabled", false);
           }
         } else {
           this.$toast(res.message);

@@ -141,11 +141,11 @@ export default {
           placeholder: "请输入户籍"
         },
         {
-          label: "初中毕业学校",
+          label: "初中毕业学校（全称）",
           type: "field",
           prop: "graduateMiddleSchool",
           required: true,
-          placeholder: "请输入初中毕业学校"
+          placeholder: "请输入初中毕业学校（全称）"
         },
         {
           label: "报考特长",
