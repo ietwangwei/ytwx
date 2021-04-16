@@ -46,6 +46,15 @@ export default {
   exportPdfFile(id) {
     return ytzx.exportPdfFile + id + '?locked=true'
   },
+  /**
+   * 后端下载
+   */
+  exportPdfFileBak(id) {
+    return httpService({
+      url: ytzx.exportPdfFile + id + '?locked=true',
+      method: 'get'
+    })
+  },
   submitScore(data) {
     return httpService({
       url: ytzx.submitScore,
