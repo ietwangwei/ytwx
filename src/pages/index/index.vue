@@ -202,12 +202,18 @@ export default {
             this.$http.ytzx.exportPdfFileBak(id).then((res) => {});
             this.$dialog
               .alert({
-                title: "提示信息",
-                message: "准考证正在生成，请稍后下载（3后自动刷新）",
+                title: "准考证下载提示",
+                message: "正在生成准考证，请稍后下载（点击确认3秒后自动刷新）",
               })
               .then(() => {
                 setTimeout("location.reload()", 3000);
                 this.$set(this.navs[2], "disabled", true);
+                this.$toast.loading({
+                  duration: 0, // 持续展示 toast
+                  loadingType: "spinner",
+                  message: "加载中...",
+                  forbidClick: true,
+                });
               });
             return;
           }
