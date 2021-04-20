@@ -113,14 +113,13 @@ export default {
       } else if (item.type === "5") {
         this.$dialog
           .alert({
-            title: "测试成绩", //加上标题
+            title: "测试结果", //加上标题
             message:
               this.bmData.studentName +
-              "你好，你在本次艺体特长测试【" +
+              " 你好，你在本次艺体特长测试【" +
               this.bmData.skill +
-              "】专业的成绩是" +
-              this.bmData.skillScore +
-              "分！",
+              "】专业的结果为 艺体素质测试" +
+              this.bmData.skillTestResult,
           })
           .then(() => {})
           .catch(() => {});
@@ -193,7 +192,7 @@ export default {
         .alert({
           title: "下载准考证提示", //加上标题
           message:
-            "准考证下载后将无法修改报名信息，请再次检查确认所填信息，特别是考生照片是否清晰、头向上！是否下载 ？", //改变弹出框的内容
+            "准考证下载后将无法修改报名信息，请再次检查确认所填信息，特别是专业信息是否正确，考生照片是否清晰、头向上！是否下载 ？", //改变弹出框的内容
           confirmButtonText: "确定下载",
           showCancelButton: true, //展示取水按钮
         })
