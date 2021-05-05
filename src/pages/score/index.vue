@@ -119,54 +119,54 @@ export default {
           mode: 'number',
           placeholder: "请输入化学成绩"
         },
-        {
-          label: "道德与法治",
-          type: "field",
-          prop: "politics",
-          required: true,
-          mode: 'number',
-          placeholder: "请输入道德与法治成绩"
-        },
-        {
-          label: "历史",
-          type: "field",
-          prop: "history",
-          required: true,
-          mode: 'number',
-          placeholder: "请输入历史成绩"
-        },
-        {
-          label: "生物",
-          type: "field",
-          prop: "biology",
-          required: true,
-          mode: 'number',
-          placeholder: "请输入生物成绩"
-        },
-        {
-          label: "地理",
-          type: "field",
-          prop: "geography",
-          required: true,
-          mode: 'number',
-          placeholder: "请输入地理成绩"
-        },
-        {
-          label: "体育",
-          type: "field",
-          prop: "physical",
-          required: true,
-          mode: 'number',
-          placeholder: "请输入体育成绩"
-        },
-        {
-          label: "总分",
-          type: "field",
-          prop: "total",
-          mode: 'number',
-          disabled: true,
-          placeholder: "请输入总分"
-        },
+        // {
+        //   label: "道德与法治",
+        //   type: "field",
+        //   prop: "politics",
+        //   required: true,
+        //   mode: 'number',
+        //   placeholder: "请输入道德与法治成绩"
+        // },
+        // {
+        //   label: "历史",
+        //   type: "field",
+        //   prop: "history",
+        //   required: true,
+        //   mode: 'number',
+        //   placeholder: "请输入历史成绩"
+        // },
+        // {
+        //   label: "生物",
+        //   type: "field",
+        //   prop: "biology",
+        //   required: true,
+        //   mode: 'number',
+        //   placeholder: "请输入生物成绩"
+        // },
+        // {
+        //   label: "地理",
+        //   type: "field",
+        //   prop: "geography",
+        //   required: true,
+        //   mode: 'number',
+        //   placeholder: "请输入地理成绩"
+        // },
+        // {
+        //   label: "体育",
+        //   type: "field",
+        //   prop: "physical",
+        //   required: true,
+        //   mode: 'number',
+        //   placeholder: "请输入体育成绩"
+        // },
+        // {
+        //   label: "总分",
+        //   type: "field",
+        //   prop: "total",
+        //   mode: 'number',
+        //   disabled: true,
+        //   placeholder: "请输入总分"
+        // },
       ],
       formData: {
         chinese: '',
@@ -203,9 +203,11 @@ export default {
   methods: {
     getScore () {
       this.$http.ytzx.getScore().then(res => {
-        if (res.code === 200 && res.data) {
-          this.formData = res.data
-          this.getTotal()
+        if (res.code === 200) {
+          if (res.data) {
+            this.formData = res.data
+            this.getTotal()
+          }
         } else {
           this.$toast(res.message)
         }

@@ -66,7 +66,7 @@ export default {
           width: "100%",
         },
         {
-          label: "中考成绩录入",
+          label: "二诊成绩录入",
           type: "4",
           url: "/pages/score/index",
           icon: "sign",
@@ -116,9 +116,9 @@ export default {
             title: "测试结果", //加上标题
             message:
               this.bmData.studentName +
-              " 你好，你在本次艺体特长测试【" +
+              " 你好，你在本次艺体特长测试 [" +
               this.bmData.skill +
-              "】专业的结果为 艺体素质测试" +
+              "] 专业的成绩为 " +
               this.bmData.skillTestResult,
           })
           .then(() => {})
