@@ -91,8 +91,8 @@ export default {
       title: "",
       canBm: false,
       canZkz: false,
-      canZkcj: false,
-      canScore: false,
+      canSubmitScore: false,
+      canQueryScore: false,
       bmData: {},
     };
   },
@@ -145,8 +145,8 @@ export default {
             this.$set(this.navs[2], "label", res.data.zkz.beginTip);
           }
           // this.$set(this.navs[4], "disabled", false);
-          this.canZkcj = res.data.canZkcj;
-          this.canScore = res.data.canScore;
+          this.canSubmitScore = res.data.canSubmitScore;
+          this.canQueryScore = res.data.canQueryScore;
           this.getBaomingByOpenid();
         }
       });
@@ -171,10 +171,10 @@ export default {
             if (this.canZkz) {
               this.$set(this.navs[2], "disabled", false);
             }
-            if (this.canZkcj) {
+            if (this.canSubmitScore) {
               this.$set(this.navs[3], "disabled", false);
             }
-            if (this.canScore) {
+            if (this.canQueryScore) {
               this.$set(this.navs[4], "disabled", false);
             }
             // this.$set(this.navs[2], "disabled", false);
