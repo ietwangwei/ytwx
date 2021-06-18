@@ -23,7 +23,7 @@
           type="primary"
           @click="handleClick"
         >
-          已阅读并开始报名<span v-if="time > 0">(剩余{{ time }}秒)</span>
+          已阅读并开始报名<span v-if="time > 0"> (剩余{{ time }}秒)</span>
         </van-button>
       </div>
     </div>

@@ -1,50 +1,56 @@
 <template>
   <view class="signup">
     <van-cell-group>
-      <van-cell
-        v-for="(item, index) in formConfig"
-        :key="index"
-        :border="true"
-        @click="click(item)"
-      >
-        <div class="ceel-label">
-          <span v-if="item.required" style="color: red">*</span>
-          <span class="margin-left10 title">{{ item.label }}</span>
-        </div>
-        <van-field
-          v-if="item.type === 'field'"
-          v-model="formData[item.prop]"
-          :placeholder="item.placeholder"
-          :border="false"
-          :type="item.mode"
-          :prop="item.prop"
-          clearable
-          @change="inputChange"
-          @clear="clearHandler(item)"
-        />
-        <div
-          v-if="item.type === 'picker'"
-          class="cell-value van-cell"
-          @click="openPicker(item)"
-        >
-          {{ formData[item.prop] }}
-        </div>
-        <van-uploader
-          v-if="item.type === 'upload'"
-          v-model="formData[item.prop]"
-          :max-count="item.max"
-          :after-read="afterRead"
-          class="van-cell"
-          accept="image"
-        />
-        <div
-          v-if="item.type === 'area'"
-          class="cell-value van-cell"
-          @click="openArea(item)"
-        >
-          {{ formData[item.prop] }}
-        </div>
-      </van-cell>
+      <div v-for="(item, index) in formConfig" :key="index">
+        <van-cell v-if="item.show" :border="true" @click="click(item)">
+          <div class="ceel-label">
+            <span v-if="item.required" style="color: red">*</span>
+            <span class="margin-left10 title">{{ item.label }}</span>
+          </div>
+          <van-field
+            v-if="item.type === 'field'"
+            v-model="formData[item.prop]"
+            :placeholder="item.placeholder"
+            :border="false"
+            :type="item.mode"
+            :prop="item.prop"
+            clearable
+            @change="inputChange"
+            @clear="clearHandler(item)"
+          />
+          <div v-if="item.type === 'radio'" class="van-radio">
+            <van-radio-group
+              v-model="formData[item.prop]"
+              direction="horizontal"
+            >
+              <van-radio name="1">是</van-radio>
+              <van-radio name="2">否</van-radio>
+            </van-radio-group>
+          </div>
+          <div
+            v-if="item.type === 'picker'"
+            class="cell-value van-cell"
+            @click="openPicker(item)"
+          >
+            {{ formData[item.prop] }}
+          </div>
+          <van-uploader
+            v-if="item.type === 'upload'"
+            v-model="formData[item.prop]"
+            :max-count="item.max"
+            :after-read="afterRead"
+            class="van-cell"
+            accept="image"
+          />
+          <div
+            v-if="item.type === 'area'"
+            class="cell-value van-cell"
+            @click="openArea(item)"
+          >
+            {{ formData[item.prop] }}
+          </div>
+        </van-cell>
+      </div>
       <div class="button">
         <van-checkbox
           v-model="checked"
@@ -72,7 +78,7 @@
     <!-- 选择特长 -->
     <van-popup v-model="show" position="bottom">
       <van-picker
-        v-model="formData.techang"
+        :default-index="currentPickerIndex"
         :columns="columns"
         show-toolbar
         @confirm="pickerConfirmHandler"
@@ -109,7 +115,8 @@ export default {
           type: "field",
           prop: "studentName",
           required: true,
-          placeholder: "请输入姓名",
+          placeholder: "请输入考生姓名",
+          show: true,
         },
         {
           label: "考生电话",
@@ -117,28 +124,56 @@ export default {
           mode: "number",
           prop: "telephone",
           required: true,
-          placeholder: "请输入联系电话",
+          placeholder: "请输入考生电话",
+          show: true,
         },
         {
-          label: "身份证号码",
+          label: "考生身份证号",
           type: "field",
           prop: "idCardNumber",
           required: true,
-          placeholder: "请输入身份证号码",
+          placeholder: "请输入考生身份证号",
+          show: true,
         },
         {
-          label: "户 籍",
-          type: "area",
+          label: "户籍地",
+          type: "picker",
           prop: "household",
           required: true,
-          placeholder: "请输入户籍",
+          placeholder: "请选择户籍地",
+          show: true,
         },
         {
-          label: "初中毕业学校（全称）",
+          label: "输入户籍地",
+          type: "field",
+          prop: "otherHousehold",
+          required: false,
+          placeholder: "请输入户籍地",
+          show: false,
+        },
+        {
+          label: "初中就读学校区域",
+          type: "picker",
+          prop: "schoolArea",
+          required: true,
+          placeholder: "请选择初中就读学校区域",
+          show: true,
+        },
+        {
+          label: "输入初中就读学校区域",
+          type: "field",
+          prop: "otherSchoolArea",
+          required: false,
+          placeholder: "请输入初中就读学校区域",
+          show: false,
+        },
+        {
+          label: "初中就读学校（完整名称）",
           type: "field",
           prop: "graduateMiddleSchool",
           required: true,
-          placeholder: "请输入初中毕业学校（全称）",
+          placeholder: "请输入初中就读学校（完整名称）",
+          show: true,
         },
         {
           label: "报考特长",
@@ -146,6 +181,7 @@ export default {
           prop: "skill",
           required: true,
           placeholder: "请输入报考特长",
+          show: true,
         },
         {
           label: "监护人姓名",
@@ -153,6 +189,7 @@ export default {
           prop: "guarderName",
           required: true,
           placeholder: "请输入监护人姓名",
+          show: true,
         },
         {
           label: "监护人电话",
@@ -161,6 +198,7 @@ export default {
           required: true,
           mode: "number",
           placeholder: "请输入监护人电话",
+          show: true,
         },
         {
           label: "考生照片（2寸证件照）",
@@ -168,6 +206,7 @@ export default {
           required: true,
           max: 1,
           prop: "zjzUrls",
+          show: true,
         },
         {
           label: "身份证或户口簿",
@@ -175,6 +214,7 @@ export default {
           required: true,
           max: 1,
           prop: "sfzhkbUrls",
+          show: true,
         },
         {
           label: "获得的主要荣誉",
@@ -183,6 +223,7 @@ export default {
           required: false,
           max: 3,
           placeholder: "请输入获得的主要荣誉",
+          show: true,
         },
         {
           label: "艺术体育学习经历",
@@ -191,11 +232,13 @@ export default {
           required: false,
           mode: "textarea",
           placeholder: "请输入艺术体育学习经历",
+          show: true,
         },
       ],
       formData: {
         studentName: "",
-        household: "四川省,成都市,双流区",
+        household: "双流区",
+        schoolArea: "双流区",
         householdCode: "510116",
         idCardNumber: "",
         graduateMiddleSchool: "",
@@ -209,9 +252,62 @@ export default {
       },
       currentPickerProp: "",
       currentPickerValue: "",
+      currentPickerIndex: 0,
       columns: [],
       columnsMap: {
         skill: ["美术", "体育", "声乐", "器乐", "舞蹈", "播音主持", "书法"],
+        household: [
+          "天府新区",
+          "东部新区",
+          "高新区",
+          "锦江区",
+          "青羊区",
+          "武侯区",
+          "金牛区",
+          "成华区",
+          "龙泉驿区",
+          "青白江区",
+          "新都区",
+          "温江区",
+          "双流区",
+          "郫都区",
+          "简阳市",
+          "都江堰市",
+          "彭州市",
+          "邛崃市",
+          "崇州市",
+          "金堂县",
+          "新津县",
+          "大邑县",
+          "蒲江县",
+          "其他",
+        ],
+        schoolArea: [
+          "天府新区",
+          "东部新区",
+          "高新区",
+          "锦江区",
+          "青羊区",
+          "武侯区",
+          "金牛区",
+          "成华区",
+          "龙泉驿区",
+          "青白江区",
+          "新都区",
+          "温江区",
+          "双流区",
+          "郫都区",
+          "简阳市",
+          "都江堰市",
+          "彭州市",
+          "邛崃市",
+          "崇州市",
+          "金堂县",
+          "新津县",
+          "大邑县",
+          "蒲江县",
+          "其他",
+        ],
       },
       submitDisabled: true,
       uploadProp: null,
@@ -251,6 +347,20 @@ export default {
     if (routeParams.hasData) {
       let data = localStorage.getItem("baoming");
       this.formData = JSON.parse(data);
+      if (this.formData.household === "其他") {
+        this.formConfig[4].show = true;
+        this.formConfig[4].required = true;
+      } else {
+        this.formConfig[4].show = false;
+        this.formConfig[4].required = false;
+      }
+      if (this.formData.schoolArea === "其他") {
+        this.formConfig[6].show = true;
+        this.formConfig[6].required = true;
+      } else {
+        this.formConfig[6].show = false;
+        this.formConfig[6].required = false;
+      }
       this.formData.zjzUrls = this.formData.zjzUrls.map((i) => {
         return {
           url: i,
@@ -295,6 +405,12 @@ export default {
     openPicker(item) {
       this.columns = this.columnsMap[item.prop];
       this.currentPickerProp = item.prop;
+      this.currentPickerValue = this.formData[item.prop];
+      let index = (this.columns || []).findIndex(
+        (item) => item === this.currentPickerValue
+      );
+      this.currentPickerIndex = index;
+      console.info(this.currentPickerIndex);
       this.show = true;
     },
     openArea() {
@@ -382,7 +498,24 @@ export default {
     },
     pickerConfirmHandler(e, index) {
       this.formData[this.currentPickerProp] = e;
-      this.currentPickerProp = "";
+      if (this.currentPickerProp == "household") {
+        if (e === "其他") {
+          this.formConfig[4].show = true;
+          this.formConfig[4].required = true;
+        } else {
+          this.formConfig[4].show = false;
+          this.formConfig[4].required = false;
+        }
+      }
+      if (this.currentPickerProp == "schoolArea") {
+        if (e === "其他") {
+          this.formConfig[6].show = true;
+          this.formConfig[6].required = true;
+        } else {
+          this.formConfig[6].show = false;
+          this.formConfig[6].required = false;
+        }
+      }
       this.show = false;
     },
     clearHandler(item) {
