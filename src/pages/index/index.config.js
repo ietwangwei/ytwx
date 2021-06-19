@@ -1,3 +1,3 @@
 export default {
-  navigationBarTitleText: '双流区2021年艺体特长素质测试'
+  navigationBarTitleText: '四川省双流艺体中学2021年艺体特长素质测试'
 }
