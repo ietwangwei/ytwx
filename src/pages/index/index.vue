@@ -66,7 +66,7 @@ export default {
           width: "100%",
         },
         {
-          label: "二诊成绩录入",
+          label: "中考成绩录入",
           type: "4",
           url: "/pages/score/index",
           icon: "sign",

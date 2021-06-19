@@ -255,7 +255,16 @@ export default {
       currentPickerIndex: 0,
       columns: [],
       columnsMap: {
-        skill: ["美术", "体育", "声乐", "器乐", "舞蹈", "播音主持", "书法"],
+        skill: [
+          "美术",
+          "书法",
+          "体育",
+          "声乐",
+          "器乐",
+          "舞蹈",
+          "播音主持",
+          "编导",
+        ],
         household: [
           "天府新区",
           "东部新区",
