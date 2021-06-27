@@ -1,16 +1,9 @@
 <template>
   <div class="score">
     <van-cell-group>
-      <van-cell
-        v-for="(item, index) in formConfig"
-        :key="index"
-        :border="true"
-      >
+      <van-cell v-for="(item, index) in formConfig" :key="index" :border="true">
         <div class="ceel-label">
-          <span
-            v-if="item.required"
-            style="color: red;"
-          >*</span>
+          <span v-if="item.required" style="color: red">*</span>
           <span class="margin-left10 title">{{ item.label }}</span>
         </div>
         <van-field
@@ -51,11 +44,13 @@
       <div class="button">
         <van-checkbox
           v-model="checked"
-          style="margin-top: 12px;"
+          style="margin-top: 12px"
           icon-size="14px"
           checked-color="#07c160"
         >
-          <span style="color: rgba(69, 90, 100, 0.6);font-size: 14px;">我承诺所填信息均真实有效</span>
+          <span style="color: rgba(69, 90, 100, 0.6); font-size: 14px"
+            >我承诺所填信息均真实有效</span
+          >
         </van-checkbox>
         <van-button
           :disabled="submitDisabled || !checked"
@@ -63,7 +58,7 @@
           loading-text="正在提交..."
           loading-type="spinner"
           type="primary"
-          style="margin-top: 12px;"
+          style="margin-top: 12px"
           @click="submitData"
         >
           提 交
@@ -75,8 +70,8 @@
 
 <script>
 export default {
-  name: 'Score',
-  data () {
+  name: "Score",
+  data() {
     return {
       formConfig: [
         {
@@ -84,172 +79,172 @@ export default {
           type: "field",
           prop: "chinese",
           required: true,
-          mode: 'number',
-          placeholder: "请输入语文成绩"
+          mode: "number",
+          placeholder: "请输入语文成绩",
         },
         {
           label: "数学",
           type: "field",
           prop: "math",
           required: true,
-          mode: 'number',
-          placeholder: "请输入数学成绩"
+          mode: "number",
+          placeholder: "请输入数学成绩",
         },
         {
           label: "英语",
           type: "field",
           prop: "english",
           required: true,
-          mode: 'number',
-          placeholder: "请输入英语成绩"
+          mode: "number",
+          placeholder: "请输入英语成绩",
         },
         {
           label: "物理",
           type: "field",
           prop: "physics",
           required: true,
-          mode: 'number',
-          placeholder: "请输入物理成绩"
+          mode: "number",
+          placeholder: "请输入物理成绩",
         },
         {
           label: "化学",
           type: "field",
           prop: "chemistry",
           required: true,
-          mode: 'number',
-          placeholder: "请输入化学成绩"
+          mode: "number",
+          placeholder: "请输入化学成绩",
         },
-        // {
-        //   label: "道德与法治",
-        //   type: "field",
-        //   prop: "politics",
-        //   required: true,
-        //   mode: 'number',
-        //   placeholder: "请输入道德与法治成绩"
-        // },
-        // {
-        //   label: "历史",
-        //   type: "field",
-        //   prop: "history",
-        //   required: true,
-        //   mode: 'number',
-        //   placeholder: "请输入历史成绩"
-        // },
-        // {
-        //   label: "生物",
-        //   type: "field",
-        //   prop: "biology",
-        //   required: true,
-        //   mode: 'number',
-        //   placeholder: "请输入生物成绩"
-        // },
-        // {
-        //   label: "地理",
-        //   type: "field",
-        //   prop: "geography",
-        //   required: true,
-        //   mode: 'number',
-        //   placeholder: "请输入地理成绩"
-        // },
-        // {
-        //   label: "体育",
-        //   type: "field",
-        //   prop: "physical",
-        //   required: true,
-        //   mode: 'number',
-        //   placeholder: "请输入体育成绩"
-        // },
-        // {
-        //   label: "总分",
-        //   type: "field",
-        //   prop: "total",
-        //   mode: 'number',
-        //   disabled: true,
-        //   placeholder: "请输入总分"
-        // },
+        {
+          label: "道德与法治",
+          type: "field",
+          prop: "politics",
+          required: true,
+          mode: "number",
+          placeholder: "请输入道德与法治成绩",
+        },
+        {
+          label: "历史",
+          type: "field",
+          prop: "history",
+          required: true,
+          mode: "number",
+          placeholder: "请输入历史成绩",
+        },
+        {
+          label: "生物",
+          type: "field",
+          prop: "biology",
+          required: true,
+          mode: "number",
+          placeholder: "请输入生物成绩",
+        },
+        {
+          label: "地理",
+          type: "field",
+          prop: "geography",
+          required: true,
+          mode: "number",
+          placeholder: "请输入地理成绩",
+        },
+        {
+          label: "体育",
+          type: "field",
+          prop: "physical",
+          required: true,
+          mode: "number",
+          placeholder: "请输入体育成绩",
+        },
+        {
+          label: "总分",
+          type: "field",
+          prop: "total",
+          mode: "number",
+          disabled: true,
+          placeholder: "输入各科成绩后自动计算",
+        },
       ],
       formData: {
-        chinese: '',
-        math: '',
-        english: '',
-        physics: '',
-        chemistry: '',
-        politics: '',
-        history: '',
-        biology: '',
-        geography: '',
-        physical: '',
-        total: ''
+        chinese: "",
+        math: "",
+        english: "",
+        physics: "",
+        chemistry: "",
+        politics: "",
+        history: "",
+        biology: "",
+        geography: "",
+        physical: "",
+        total: "",
       },
       loading: false,
-      checked: false
-    }
+      checked: false,
+    };
   },
   computed: {
-    submitDisabled () {
-      let result = false
+    submitDisabled() {
+      let result = false;
       for (let i in this.formData) {
         if (this.formData[i] === undefined) {
-          result = true
-          break
+          result = true;
+          break;
         }
       }
-      return result
-    }
+      return result;
+    },
   },
-  mounted () {
-    this.getScore()
+  mounted() {
+    this.getScore();
   },
   methods: {
-    getScore () {
-      this.$http.ytzx.getScore().then(res => {
+    getScore() {
+      this.$http.ytzx.getScore().then((res) => {
         if (res.code === 200) {
           if (res.data) {
-            this.formData = res.data
-            this.getTotal()
+            this.formData = res.data;
+            this.getTotal();
           }
         } else {
-          this.$toast(res.message)
+          this.$toast(res.message);
         }
-      })
+      });
     },
-    inputChange (e) {
+    inputChange(e) {
       const value = e.target.value;
       const prop = e.target.getAttribute("prop");
       this.formData[prop] = value;
-      this.getTotal()
+      this.getTotal();
     },
-    getTotal () {
-      let total = 0
+    getTotal() {
+      let total = 0;
       for (let i in this.formData) {
-        if (i !== 'total' && this.formData[i]) {
-          total += parseFloat(this.formData[i])
+        if (i !== "total" && this.formData[i]) {
+          total += parseFloat(this.formData[i]);
         }
       }
-      this.$set(this.formData, 'total', total)
+      this.$set(this.formData, "total", total);
     },
-    clearHandler (item) {
-      this.formData[item.prop] = ''
-      this.getTotal()
+    clearHandler(item) {
+      this.formData[item.prop] = "";
+      this.getTotal();
     },
-    submitData () {
-      this.loading = true
-      let openid = localStorage.getItem('openid');
-      this.$http.ytzx.submitScore(this.formData).then(res => {
-        this.loading = false
+    submitData() {
+      this.loading = true;
+      let openid = localStorage.getItem("openid");
+      this.$http.ytzx.submitScore(this.formData).then((res) => {
+        this.loading = false;
         if (res.code === 200) {
           this.$toast("提交成功！");
-          localStorage.clear()
+          localStorage.clear();
           this.$Taro.navigateTo({
-            url: `/pages/index/index?openid=${openid}`
+            url: `/pages/index/index?openid=${openid}`,
           });
         } else {
           this.$toast(res.message);
         }
       });
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

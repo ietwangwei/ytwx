@@ -139,12 +139,10 @@ export default {
             this.$set(this.navs[0], "disabled", false);
           }
           if (res.data.canZkz) {
-            // this.$set(this.navs[2], "disabled", false);
             this.canZkz = res.data.canZkz;
           } else {
             this.$set(this.navs[2], "label", res.data.zkz.beginTip);
           }
-          // this.$set(this.navs[4], "disabled", false);
           this.canSubmitScore = res.data.canSubmitScore;
           this.canQueryScore = res.data.canQueryScore;
           this.getBaomingByOpenid();

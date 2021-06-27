@@ -1,5 +1,4 @@
 const prefix = 'https://sljy.cdsledu.net/cms'
-// const prefix = 'https://sljy.cdsledu.net/test/api'
 // const prefix = 'http://127.0.0.1:8099'
 
 export const ytzx = {
