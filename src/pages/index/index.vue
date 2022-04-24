@@ -2,7 +2,7 @@
   <view class="index">
     <div class="bg">
       <div class="user">
-        <van-image
+        <!-- <van-image
           v-if="userInfo.headimgurl"
           round
           width="80px"
@@ -10,13 +10,13 @@
           use-error-slot
           :src="userInfo.headimgurl"
         >
-          <!-- <text slot="error">
-            加载失败
-          </text> -->
         </van-image>
-        <div v-else class="user-cover" style="width: 80px; height: 80px" />
+        <div v-else class="user-cover" style="width: 80px; height: 80px" /> -->
       </div>
-      <div class="grid">
+      <div
+        class="grid"
+        style="margin-top:50px"
+      >
         <van-button
           v-for="item in navs"
           :key="item.type"
@@ -30,7 +30,10 @@
           {{ item.label }}
         </van-button>
       </div>
-      <div class="desc" v-html="title"></div>
+      <div
+        class="desc"
+        v-html="title"
+      />
       <div class="logo" />
     </div>
   </view>
@@ -47,7 +50,7 @@ export default {
           url: "/pages/notice/index",
           icon: "plus",
           disabled: true,
-          width: "100%",
+          width: "100%"
         },
         {
           label: "我的报名",
@@ -55,7 +58,7 @@ export default {
           url: "/pages/signup/index?hasData=true",
           icon: "success",
           disabled: true,
-          width: "100%",
+          width: "100%"
         },
         {
           label: "下载准考证",
@@ -63,7 +66,7 @@ export default {
           url: "/pages/center/index",
           icon: "down",
           disabled: true,
-          width: "100%",
+          width: "100%"
         },
         {
           label: "中考成绩录入",
@@ -71,7 +74,7 @@ export default {
           url: "/pages/score/index",
           icon: "sign",
           disabled: true,
-          width: "100%",
+          width: "100%"
         },
         {
           label: "测试成绩查询",
@@ -79,13 +82,13 @@ export default {
           url: "/pages/score/index",
           icon: "search",
           disabled: true,
-          width: "204%",
-        },
+          width: "204%"
+        }
       ],
       openid: null,
       fileId: "",
       userInfo: {
-        headimgurl: "",
+        headimgurl: ""
       },
       hasUser: false,
       title: "",
@@ -93,7 +96,7 @@ export default {
       canZkz: false,
       canSubmitScore: false,
       canQueryScore: false,
-      bmData: {},
+      bmData: {}
     };
   },
   mounted() {
@@ -119,18 +122,18 @@ export default {
               " 你好，你在本次艺体特长测试 [" +
               this.bmData.skill +
               "] 专业的成绩为 " +
-              this.bmData.skillTestResult,
+              this.bmData.skillTestResult
           })
           .then(() => {})
           .catch(() => {});
       } else {
         this.$Taro.navigateTo({
-          url: item.url,
+          url: item.url
         });
       }
     },
     getBmConfig() {
-      this.$http.ytzx.getBmConfig().then((res) => {
+      this.$http.ytzx.getBmConfig().then(res => {
         if (res.code === 200) {
           console.info(res.data);
           this.title = res.data.title;
@@ -150,7 +153,7 @@ export default {
       });
     },
     getWechatUserInfo() {
-      this.$http.ytzx.getWechatUserInfo().then((res) => {
+      this.$http.ytzx.getWechatUserInfo().then(res => {
         if (res.code === 200) {
           this.userInfo = res.data;
         } else {
@@ -159,7 +162,7 @@ export default {
       });
     },
     getBaomingByOpenid() {
-      this.$http.ytzx.getBaomingByOpenid().then((res) => {
+      this.$http.ytzx.getBaomingByOpenid().then(res => {
         if (res.code === 200) {
           if (res.data) {
             this.bmData = res.data;
@@ -192,15 +195,15 @@ export default {
           message:
             "准考证下载后将无法修改报名信息，请再次检查确认所填信息，特别是专业信息是否正确，考生照片是否清晰、头向上！是否下载 ？", //改变弹出框的内容
           confirmButtonText: "确定下载",
-          showCancelButton: true, //展示取水按钮
+          showCancelButton: true //展示取水按钮
         })
         .then(() => {
           if (!this.bmData.zkzUrl) {
-            this.$http.ytzx.exportPdfFileBak(id).then((res) => {});
+            this.$http.ytzx.exportPdfFileBak(id).then(res => {});
             this.$dialog
               .alert({
                 title: "准考证下载提示",
-                message: "正在生成准考证，请稍后下载（点击确认3秒后自动刷新）",
+                message: "正在生成准考证，请稍后下载（点击确认3秒后自动刷新）"
               })
               .then(() => {
                 setTimeout("location.reload()", 3000);
@@ -209,7 +212,7 @@ export default {
                   duration: 0, // 持续展示 toast
                   loadingType: "spinner",
                   message: "加载中...",
-                  forbidClick: true,
+                  forbidClick: true
                 });
               });
             return;
@@ -232,12 +235,11 @@ export default {
           //点击取消按钮后的调用
           console.log("点击了取消按钮噢");
         });
-    },
-  },
+    }
+  }
 };
 </script>
 
 <style lang="scss" scoped>
 @import "./index.scss";
 </style>
-

@@ -2,7 +2,7 @@
   <view class="notice">
     <div class="page-container">
       <div class="notice-bar">
-        <p>温馨提示：</p>
+        <p>报名须知：</p>
         <div v-html="notice" />
       </div>
       <div class="btn">
@@ -13,9 +13,9 @@
           icon-size="16px"
           checked-color="#07c160"
         >
-          <span style="color: rgba(69, 90, 100, 0.6)"
-            >阅读并同意《报名须知》</span
-          >
+          <span
+            style="color: rgba(69, 90, 100, 0.6)"
+          >阅读并同意《报名须知》</span>
         </van-checkbox>
         <van-button
           :disabled="!checked"

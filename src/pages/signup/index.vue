@@ -1,10 +1,20 @@
 <template>
   <view class="signup">
     <van-cell-group>
-      <div v-for="(item, index) in formConfig" :key="index">
-        <van-cell v-if="item.show" :border="true" @click="click(item)">
+      <div
+        v-for="(item, index) in formConfig"
+        :key="index"
+      >
+        <van-cell
+          v-if="item.show"
+          :border="true"
+          @click="click(item)"
+        >
           <div class="ceel-label">
-            <span v-if="item.required" style="color: red">*</span>
+            <span
+              v-if="item.required"
+              style="color: red"
+            >*</span>
             <span class="margin-left10 title">{{ item.label }}</span>
           </div>
           <van-field
@@ -18,13 +28,27 @@
             @change="inputChange"
             @clear="clearHandler(item)"
           />
-          <div v-if="item.type === 'radio'" class="van-radio">
+          <div
+            v-if="item.type === 'radio'"
+            class="van-radio"
+          >
             <van-radio-group
               v-model="formData[item.prop]"
               direction="horizontal"
             >
-              <van-radio name="1">是</van-radio>
-              <van-radio name="2">否</van-radio>
+              <van-radio
+                name="男"
+                checked-color="#07c160"
+                style="margin-right: 10px;"
+              >
+                男
+              </van-radio>
+              <van-radio
+                name="女"
+                checked-color="#07c160"
+              >
+                女
+              </van-radio>
             </van-radio-group>
           </div>
           <div
@@ -32,7 +56,15 @@
             class="cell-value van-cell"
             @click="openPicker(item)"
           >
-            {{ formData[item.prop] }}
+            <div v-if="formData[item.prop]">
+              {{ formData[item.prop] }}
+            </div>
+            <div
+              v-if="!formData[item.prop]"
+              style="color:#bdbdbd"
+            >
+              {{ item.placeholder }}
+            </div>
           </div>
           <van-uploader
             v-if="item.type === 'upload'"
@@ -58,9 +90,9 @@
           icon-size="14px"
           checked-color="#07c160"
         >
-          <span style="color: rgba(69, 90, 100, 0.6); font-size: 14px"
-            >我承诺所填信息均真实有效</span
-          >
+          <span
+            style="color: rgba(69, 90, 100, 0.6); font-size: 14px"
+          >我承诺所填信息均真实有效</span>
         </van-checkbox>
         <van-button
           :disabled="submitDisabled || !checked"
@@ -76,7 +108,10 @@
       </div>
     </van-cell-group>
     <!-- 选择特长 -->
-    <van-popup v-model="show" position="bottom">
+    <van-popup
+      v-model="show"
+      position="bottom"
+    >
       <van-picker
         :default-index="currentPickerIndex"
         :columns="columns"
@@ -86,7 +121,10 @@
       />
     </van-popup>
     <!-- 选择省市区 -->
-    <van-popup v-model="areaShow" position="bottom">
+    <van-popup
+      v-model="areaShow"
+      position="bottom"
+    >
       <van-area
         :area-list="areaList"
         :value="formData.householdCode"
@@ -115,57 +153,24 @@ export default {
           type: "field",
           prop: "studentName",
           required: true,
-          placeholder: "请输入考生姓名",
-          show: true,
+          placeholder: "请输入姓名",
+          show: true
         },
         {
-          label: "考生电话",
-          type: "field",
-          mode: "number",
-          prop: "telephone",
+          label: "考生性别",
+          type: "radio",
+          prop: "studentGender",
           required: true,
-          placeholder: "请输入考生电话",
-          show: true,
+          placeholder: "请选择性别",
+          show: true
         },
         {
-          label: "考生身份证号",
+          label: "户籍地（例：四川省成都市双流区）",
           type: "field",
-          prop: "idCardNumber",
-          required: true,
-          placeholder: "请输入考生身份证号",
-          show: true,
-        },
-        {
-          label: "户籍地",
-          type: "picker",
           prop: "household",
           required: true,
-          placeholder: "请选择户籍地",
-          show: true,
-        },
-        {
-          label: "输入户籍地",
-          type: "field",
-          prop: "otherHousehold",
-          required: false,
-          placeholder: "请输入户籍地",
-          show: false,
-        },
-        {
-          label: "初中就读学校区域",
-          type: "picker",
-          prop: "schoolArea",
-          required: true,
-          placeholder: "请选择初中就读学校区域",
-          show: true,
-        },
-        {
-          label: "输入初中就读学校区域",
-          type: "field",
-          prop: "otherSchoolArea",
-          required: false,
-          placeholder: "请输入初中就读学校区域",
-          show: false,
+          placeholder: "请输入户籍地（例：四川省成都市双流区）",
+          show: true
         },
         {
           label: "初中就读学校（完整名称）",
@@ -173,15 +178,75 @@ export default {
           prop: "graduateMiddleSchool",
           required: true,
           placeholder: "请输入初中就读学校（完整名称）",
-          show: true,
+          show: true
+        },
+        {
+          label: "身份证号码",
+          type: "field",
+          prop: "idCardNumber",
+          required: true,
+          placeholder: "请输入身份证号码",
+          show: true
         },
         {
           label: "报考特长",
           type: "picker",
           prop: "skill",
           required: true,
-          placeholder: "请输入报考特长",
-          show: true,
+          placeholder: "请选择报考特长",
+          show: true
+        },
+        {
+          label: "考生电话",
+          type: "field",
+          mode: "number",
+          prop: "telephone",
+          required: false,
+          placeholder: "请输入考生电话",
+          show: false
+        },
+
+        // {
+        //   label: "户籍地",
+        //   type: "picker",
+        //   prop: "household",
+        //   required: true,
+        //   placeholder: "请选择户籍地",
+        //   show: true,
+        // },
+
+        {
+          label: "输入户籍地",
+          type: "field",
+          prop: "otherHousehold",
+          required: false,
+          placeholder: "请输入户籍地",
+          show: false
+        },
+        {
+          label: "初中就读学校区域",
+          type: "picker",
+          prop: "schoolArea",
+          required: false,
+          placeholder: "请选择初中就读学校区域",
+          show: false
+        },
+        {
+          label: "输入初中就读学校区域",
+          type: "field",
+          prop: "otherSchoolArea",
+          required: false,
+          placeholder: "请输入初中就读学校区域",
+          show: false
+        },
+        {
+          label: "联系电话",
+          type: "field",
+          prop: "telephone",
+          required: true,
+          mode: "number",
+          placeholder: "请输入联系电话",
+          show: true
         },
         {
           label: "监护人姓名",
@@ -189,24 +254,16 @@ export default {
           prop: "guarderName",
           required: true,
           placeholder: "请输入监护人姓名",
-          show: true,
+          show: true
         },
+
         {
-          label: "监护人电话",
-          type: "field",
-          prop: "guarderTelephone",
-          required: true,
-          mode: "number",
-          placeholder: "请输入监护人电话",
-          show: true,
-        },
-        {
-          label: "考生照片（2寸证件照）",
+          label: "考生照片（2寸彩色证件照）",
           type: "upload",
           required: true,
           max: 1,
           prop: "zjzUrls",
-          show: true,
+          show: true
         },
         {
           label: "身份证或户口簿",
@@ -214,7 +271,7 @@ export default {
           required: true,
           max: 1,
           prop: "sfzhkbUrls",
-          show: true,
+          show: true
         },
         {
           label: "获得的主要荣誉",
@@ -223,7 +280,7 @@ export default {
           required: false,
           max: 3,
           placeholder: "请输入获得的主要荣誉",
-          show: true,
+          show: true
         },
         {
           label: "艺术体育学习经历",
@@ -232,23 +289,24 @@ export default {
           required: false,
           mode: "textarea",
           placeholder: "请输入艺术体育学习经历",
-          show: true,
-        },
+          show: true
+        }
       ],
       formData: {
         studentName: "",
-        household: "双流区",
+        studentGender: "",
+        household: "",
         schoolArea: "双流区",
         householdCode: "510116",
         idCardNumber: "",
         graduateMiddleSchool: "",
-        skill: "美术",
+        skill: "",
         telephone: "",
         guarderName: "",
         zjzUrls: [],
         sfzhkbUrls: [],
         honourUrls: [],
-        studyExperience: "",
+        studyExperience: ""
       },
       currentPickerProp: "",
       currentPickerValue: "",
@@ -263,7 +321,7 @@ export default {
           "器乐",
           "舞蹈",
           "播音主持",
-          "编导",
+          "编导"
         ],
         household: [
           "天府新区",
@@ -289,7 +347,7 @@ export default {
           "新津县",
           "大邑县",
           "蒲江县",
-          "其他",
+          "其他"
         ],
         schoolArea: [
           "天府新区",
@@ -315,12 +373,12 @@ export default {
           "新津县",
           "大邑县",
           "蒲江县",
-          "其他",
-        ],
+          "其他"
+        ]
       },
       submitDisabled: true,
       uploadProp: null,
-      loading: false,
+      loading: false
     };
   },
   watch: {
@@ -347,8 +405,8 @@ export default {
           this.submitDisabled = true;
         }
       },
-      deep: true,
-    },
+      deep: true
+    }
   },
   mounted() {
     this.canSubmit();
@@ -370,29 +428,29 @@ export default {
         this.formConfig[6].show = false;
         this.formConfig[6].required = false;
       }
-      this.formData.zjzUrls = this.formData.zjzUrls.map((i) => {
+      this.formData.zjzUrls = this.formData.zjzUrls.map(i => {
         return {
           url: i,
-          name: "测试",
+          name: "测试"
         };
       });
-      this.formData.sfzhkbUrls = this.formData.sfzhkbUrls.map((i) => {
+      this.formData.sfzhkbUrls = this.formData.sfzhkbUrls.map(i => {
         return {
           url: i,
-          name: "测试",
+          name: "测试"
         };
       });
-      this.formData.honourUrls = this.formData.honourUrls.map((i) => {
+      this.formData.honourUrls = this.formData.honourUrls.map(i => {
         return {
           url: i,
-          name: "测试",
+          name: "测试"
         };
       });
     }
   },
   methods: {
     canSubmit() {
-      this.$http.ytzx.canSubmit().then((res) => {
+      this.$http.ytzx.canSubmit().then(res => {
         if (res.code === 200) {
           console.info(res.data.submit);
           this.submit = res.data.submit;
@@ -416,7 +474,7 @@ export default {
       this.currentPickerProp = item.prop;
       this.currentPickerValue = this.formData[item.prop];
       let index = (this.columns || []).findIndex(
-        (item) => item === this.currentPickerValue
+        item => item === this.currentPickerValue
       );
       this.currentPickerIndex = index;
       console.info(this.currentPickerIndex);
@@ -433,7 +491,7 @@ export default {
         let array = this.formData[this.uploadProp];
         let newArray = [];
         if (array.length > 0) {
-          array.forEach((element) => {
+          array.forEach(element => {
             if (element.url) {
               newArray.push(element);
             }
@@ -447,10 +505,10 @@ export default {
       formData.append("file", e.file);
       let len = this.formData[this.uploadProp].length;
       this.formData[this.uploadProp].splice([len - 1], 1);
-      this.$http.ytzx.upload(formData).then((res) => {
+      this.$http.ytzx.upload(formData).then(res => {
         if (res.code === 200) {
           this.formData[this.uploadProp].push({
-            url: res.data.url,
+            url: res.data.url
           });
           this.uploadProp = null;
           this.$toast("上传成功");
@@ -470,18 +528,18 @@ export default {
       }
       this.loading = true;
       const queryData = Object.assign({}, this.formData, {
-        zjzUrls: this.formData.zjzUrls.map((i) => i.url),
-        sfzhkbUrls: this.formData.sfzhkbUrls.map((i) => i.url),
-        honourUrls: this.formData.honourUrls.map((i) => i.url),
+        zjzUrls: this.formData.zjzUrls.map(i => i.url),
+        sfzhkbUrls: this.formData.sfzhkbUrls.map(i => i.url),
+        honourUrls: this.formData.honourUrls.map(i => i.url)
       });
       let openid = localStorage.getItem("openid");
-      this.$http.ytzx.saveBaoming(queryData).then((res) => {
+      this.$http.ytzx.saveBaoming(queryData).then(res => {
         this.loading = false;
         if (res.code === 200) {
           this.$toast("报名成功！");
           localStorage.clear();
           this.$Taro.navigateTo({
-            url: `/pages/index/index?openid=${openid}&id=${this.getUuid()}`,
+            url: `/pages/index/index?openid=${openid}&id=${this.getUuid()}`
           });
         } else {
           this.$toast(res.message);
@@ -489,7 +547,7 @@ export default {
       });
     },
     onAreaConfirm(e) {
-      let str = e.map((i) => i.name).join(",");
+      let str = e.map(i => i.name).join(",");
       let code = e[2].code;
       this.formData.household = str;
       this.formData.householdCode = code;
@@ -529,8 +587,8 @@ export default {
     },
     clearHandler(item) {
       this.formData[item.prop] = "";
-    },
-  },
+    }
+  }
 };
 </script>
 
