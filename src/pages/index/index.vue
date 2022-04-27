@@ -15,7 +15,7 @@
       </div>
       <div
         class="grid"
-        style="margin-top:50px"
+        style="margin-top:15%"
       >
         <van-button
           v-for="item in navs"
