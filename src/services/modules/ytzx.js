@@ -31,9 +31,13 @@ export default {
       data
     })
   },
-  getWechatUserInfo() {
+  getWechatUserInfo(timestamp) {
+    let url = ytzx.getWechatUserInfo;
+    if (timestamp) {
+      url = url + "?timestamp=" + timestamp;
+    }
     return httpService({
-      url: ytzx.getWechatUserInfo,
+      url: url,
       method: 'get'
     })
   },

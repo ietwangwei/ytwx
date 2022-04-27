@@ -21,7 +21,7 @@
           v-for="item in navs"
           :key="item.type"
           :icon="item.icon"
-          :disabled="item.disabled"
+          :disabled="item.disabled || !login"
           class="grid-btn"
           type="info"
           :style="{ width: item.width }"
@@ -96,7 +96,8 @@ export default {
       canZkz: false,
       canSubmitScore: false,
       canQueryScore: false,
-      bmData: {}
+      bmData: {},
+      login: false
     };
   },
   mounted() {
@@ -105,8 +106,8 @@ export default {
     if (this.openid) {
       localStorage.setItem("openid", this.openid);
     }
-    this.getWechatUserInfo();
-    this.getBmConfig();
+    this.getWechatUserInfo(routeParams.timestamp);
+    this.getBmConfig(this.timestamp);
     // this.$toast(`${document.body.clientHeight}`)
   },
   methods: {
@@ -152,11 +153,13 @@ export default {
         }
       });
     },
-    getWechatUserInfo() {
-      this.$http.ytzx.getWechatUserInfo().then(res => {
+    getWechatUserInfo(timestamp) {
+      this.$http.ytzx.getWechatUserInfo(timestamp).then(res => {
         if (res.code === 200) {
           this.userInfo = res.data;
+          this.login = true;
         } else {
+          this.login = false;
           this.$toast(res.message);
         }
       });
