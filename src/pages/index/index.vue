@@ -119,8 +119,8 @@ export default {
           .alert({
             title: "测试结果", //加上标题
             message:
-              this.bmData.studentName +
-              " 你好，你在本次艺体特长测试 [" +
+              this.bmData.examNumberStr +
+              " 号考生，你在本次艺体特长测试 [" +
               this.bmData.skill +
               "] 专业的成绩为 " +
               this.bmData.skillTestResult
