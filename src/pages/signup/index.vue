@@ -165,11 +165,11 @@ export default {
           show: true
         },
         {
-          label: "户籍地（例：四川省成都市双流区）",
+          label: "户籍地（例：武侯区）",
           type: "field",
           prop: "household",
           required: true,
-          placeholder: "请输入户籍地（例：四川省成都市双流区）",
+          placeholder: "请输入户籍地（例：武侯区）",
           show: true
         },
         {
@@ -178,6 +178,14 @@ export default {
           prop: "graduateMiddleSchool",
           required: true,
           placeholder: "请输入初中就读学校（完整名称）",
+          show: true
+        },
+        {
+          label: "初中就读学校区域（例：武侯区）",
+          type: "field",
+          prop: "otherSchoolArea",
+          required: true,
+          placeholder: "请输入初中就读学校区域（例：武侯区）",
           show: true
         },
         {
@@ -231,21 +239,14 @@ export default {
           placeholder: "请选择初中就读学校区域",
           show: false
         },
+
         {
-          label: "输入初中就读学校区域",
-          type: "field",
-          prop: "otherSchoolArea",
-          required: false,
-          placeholder: "请输入初中就读学校区域",
-          show: false
-        },
-        {
-          label: "联系电话",
+          label: "家长联系电话",
           type: "field",
           prop: "telephone",
           required: true,
           mode: "number",
-          placeholder: "请输入联系电话",
+          placeholder: "请输入家长联系电话",
           show: true
         },
         {
@@ -298,6 +299,7 @@ export default {
         household: "",
         schoolArea: "双流区",
         householdCode: "510116",
+        otherSchoolArea: "",
         idCardNumber: "",
         graduateMiddleSchool: "",
         skill: "",
@@ -313,16 +315,7 @@ export default {
       currentPickerIndex: 0,
       columns: [],
       columnsMap: {
-        skill: [
-          "美术",
-          "书法",
-          "体育",
-          "声乐",
-          "器乐",
-          "舞蹈",
-          "播音主持",
-          "编导"
-        ],
+        skill: ["美术", "书法", "体育", "声乐", "器乐", "舞蹈", "播音主持"],
         household: [
           "天府新区",
           "东部新区",
@@ -414,20 +407,6 @@ export default {
     if (routeParams.hasData) {
       let data = localStorage.getItem("baoming");
       this.formData = JSON.parse(data);
-      if (this.formData.household === "其他") {
-        this.formConfig[4].show = true;
-        this.formConfig[4].required = true;
-      } else {
-        this.formConfig[4].show = false;
-        this.formConfig[4].required = false;
-      }
-      if (this.formData.schoolArea === "其他") {
-        this.formConfig[6].show = true;
-        this.formConfig[6].required = true;
-      } else {
-        this.formConfig[6].show = false;
-        this.formConfig[6].required = false;
-      }
       this.formData.zjzUrls = this.formData.zjzUrls.map(i => {
         return {
           url: i,
